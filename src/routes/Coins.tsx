@@ -1,8 +1,10 @@
-import { Helmet } from 'react-helmet';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { fetchCoins } from '../api';
+import { isDarkAtom } from '../atoms';
 import Loader from '../common/Loder';
 
 const Container = styled.div`
@@ -24,13 +26,14 @@ const LoadingContainer = styled.div`
   margin-top: 50%;
 `;
 const Title = styled.h1`
-  font-size: 48px;
+  font-size: 36px;
+  margin-trim: 30px;
   color: ${(props) => props.theme.color.accent};
 `;
 const CoinList = styled.ul``;
 const Coin = styled.li`
-  background-color: #fff;
-  color: ${(props) => props.theme.color.bg};
+  background-color: ${(props) => props.theme.color.box};
+  color: ${(props) => props.theme.color.text};
   border-radius: 15px;
   margin-bottom: 10px;
   a {
@@ -60,15 +63,21 @@ interface ICoin {
   type: string;
 }
 function Coins() {
+  const setDarkTheme = useSetRecoilState(isDarkAtom);
   const { isLoading, data } = useQuery<ICoin[]>('allCoins', fetchCoins);
+
+  const toggleDarkTheme = () => setDarkTheme((prev) => !prev);
 
   return (
     <Container>
-      <Helmet>
-        <title>코인</title>
-      </Helmet>
+      <HelmetProvider>
+        <Helmet>
+          <title>코인</title>
+        </Helmet>
+      </HelmetProvider>
       <Header>
         <Title>코인</Title>
+        <button onClick={toggleDarkTheme}>Toggle Mode</button>
       </Header>
       {isLoading ? (
         <LoadingContainer>

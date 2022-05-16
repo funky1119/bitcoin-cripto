@@ -2,6 +2,8 @@ import { useQuery } from 'react-query';
 import { useOutletContext } from 'react-router-dom';
 import { fetchCoinHistory } from '../api';
 import ApexChart from 'react-apexcharts';
+import { useRecoilValue } from 'recoil';
+import { isDarkAtom } from '../atoms';
 
 interface IContext {
   coinId: string;
@@ -25,6 +27,8 @@ function Chart() {
     () => fetchCoinHistory(coinId),
     { refetchInterval: 10000 }
   );
+  const isDark = useRecoilValue(isDarkAtom);
+
   return (
     <div>
       {isLoading ? (
@@ -39,23 +43,23 @@ function Chart() {
             },
           ]}
           options={{
-            theme: { mode: 'dark' },
+            theme: { mode: isDark ? 'dark' : 'light' },
             chart: {
               toolbar: { show: false },
               width: 500,
               height: 500,
               background: 'transparent',
             },
+
             stroke: { curve: 'smooth', width: 3 },
             grid: { show: false },
             xaxis: {
               labels: { show: false },
               type: 'datetime',
               axisTicks: { show: false },
-              axisBorder: { show: false },
               categories: data?.map((price) => price.time_close),
             },
-            yaxis: { show: false },
+            yaxis: { labels: { show: false }, axisBorder: { show: true } },
             fill: {
               type: 'gradient',
               gradient: { gradientToColors: ['blue'], stops: [0, 100] },

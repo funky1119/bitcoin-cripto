@@ -1,21 +1,32 @@
+import { HelmetProvider, Helmet } from 'react-helmet-async';
 import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import { useParams, useLocation, Outlet, useMatch } from 'react-router-dom';
 import styled from 'styled-components';
 import { fetchCoinInfo, fetchCoinTickers } from '../api';
 import Loader from '../common/Loder';
-import { Helmet } from 'react-helmet';
 
 const Container = styled.div`
   padding: 0 20px;
   max-width: 480px;
   margin: 0 auto;
 `;
+
 const Header = styled.header`
   height: 10vh;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const IconLink = styled(Link)`
+  border: 1px solid ${(props) => props.theme.color.accent};
+  margin-right: auto;
+`;
+
+const IconImg = styled.img`
+  width: 30px;
+  height: 30px;
 `;
 
 const LoadingContainer = styled.div`
@@ -27,12 +38,13 @@ const LoadingContainer = styled.div`
 const Title = styled.h1`
   font-size: 48px;
   color: ${(props) => props.theme.color.accent};
+  margin-right: auto;
 `;
 
 const Overview = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.color.box};
   padding: 10px 20px;
   border-radius: 10px;
 `;
@@ -63,7 +75,7 @@ const Tab = styled.span<{ isActive: boolean }>`
   text-transform: uppercase;
   font-size: 12px;
   font-weight: 400;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${(props) => props.theme.color.box};
   padding: 7px 0;
   border-radius: 10px;
   color: ${(props) =>
@@ -153,12 +165,18 @@ function Coin() {
   const loading = infoLoading || tickersLoading;
   return (
     <Container>
-      <Helmet>
-        <title>
-          {state?.name ? state.name : loading ? 'Loading...' : infoData?.name}
-        </title>
-      </Helmet>
+      <HelmetProvider>
+        <Helmet>
+          <title>
+            {state?.name ? state.name : loading ? 'Loading...' : infoData?.name}
+          </title>
+        </Helmet>
+      </HelmetProvider>
+
       <Header>
+        <IconLink to={'/'}>
+          <IconImg src="../../image/IconBack.svg" alt="back" />
+        </IconLink>
         <Title>
           {state?.name ? state.name : loading ? 'Loading...' : infoData?.name}
         </Title>
