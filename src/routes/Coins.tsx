@@ -27,7 +27,6 @@ const LoadingContainer = styled.div`
 `;
 const Title = styled.h1`
   font-size: 36px;
-  margin-trim: 30px;
   color: ${(props) => props.theme.color.accent};
 `;
 const CoinList = styled.ul``;
