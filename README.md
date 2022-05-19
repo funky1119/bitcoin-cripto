@@ -8,6 +8,7 @@ npm install styled-component
 
 라이브러리 설치 후에도 타입스크립트에서 오류가 발생한다면
 [https://github.com/DefinitelyTyped/DefinitelyTyped]
+
 위 사이트에서 들어가서 확인 후 추가로 재설치
 ex) npm install @type/styled-component
 
