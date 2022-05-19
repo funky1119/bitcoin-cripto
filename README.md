@@ -10,6 +10,7 @@ npm install styled-component
 [https://github.com/DefinitelyTyped/DefinitelyTyped]
 
 위 사이트에서 들어가서 확인 후 추가로 재설치
+
 ex) npm install @type/styled-component
 
 ## 3. React router dom v6
