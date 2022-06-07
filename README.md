@@ -2,7 +2,7 @@
 
 ## 1. Styled component
 
-npm install styled-component
+npm install styled-components
 
 ## 2. Type script
 
