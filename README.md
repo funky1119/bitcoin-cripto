@@ -2,7 +2,7 @@
 
 ## 1. Styled component
 
-npm install styled-component
+npm install styled-components
 
 ## 2. Type script
 
@@ -11,7 +11,7 @@ npm install styled-component
 
 위 사이트에서 들어가서 확인 후 추가로 재설치
 
-ex) npm install @type/styled-component
+ex) npm install @types/styled-components
 
 ## 3. React router dom v6
 
