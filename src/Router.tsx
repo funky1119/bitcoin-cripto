@@ -6,7 +6,7 @@ import Price from './routes/Price';
 
 function Router() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/">
       <Routes>
         <Route path={'/:coinId'} element={<Coin />}>
           <Route path={'price'} element={<Price />} />

@@ -29,6 +29,7 @@ const Title = styled.h1`
   font-size: 36px;
   color: ${(props) => props.theme.color.accent};
 `;
+const Toggle = styled.button``;
 const CoinList = styled.ul``;
 const Coin = styled.li`
   background-color: ${(props) => props.theme.color.box};
@@ -64,8 +65,7 @@ interface ICoin {
 function Coins() {
   const setDarkTheme = useSetRecoilState(isDarkAtom);
   const { isLoading, data } = useQuery<ICoin[]>('allCoins', fetchCoins);
-
-  const toggleDarkTheme = () => setDarkTheme((prev) => !prev);
+  const toggleDarkTheme = () => setDarkTheme((prev: boolean) => !prev);
 
   return (
     <Container>
@@ -76,7 +76,7 @@ function Coins() {
       </HelmetProvider>
       <Header>
         <Title>코인</Title>
-        <button onClick={toggleDarkTheme}>Toggle Mode</button>
+        <Toggle onClick={toggleDarkTheme}>Toggle Mode</Toggle>
       </Header>
       {isLoading ? (
         <LoadingContainer>

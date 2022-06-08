@@ -3,8 +3,8 @@ import { useQuery } from 'react-query';
 import { Link } from 'react-router-dom';
 import { useParams, useLocation, Outlet, useMatch } from 'react-router-dom';
 import styled from 'styled-components';
-import { fetchCoinInfo, fetchCoinTickers } from '../api';
-import Loader from '../common/Loder';
+import { fetchCoinInfo, fetchCoinTickers } from 'api';
+import Loader from 'common/Loder';
 
 const Container = styled.div`
   padding: 0 20px;
@@ -175,7 +175,10 @@ function Coin() {
 
       <Header>
         <IconLink to={'/'}>
-          <IconImg src="../../image/IconBack.svg" alt="back" />
+          <IconImg
+            src={process.env.PUBLIC_URL + '/image/IconBack.svg'}
+            alt="back"
+          />
         </IconLink>
         <Title>
           {state?.name ? state.name : loading ? 'Loading...' : infoData?.name}
