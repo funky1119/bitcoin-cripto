@@ -29,7 +29,17 @@ const Title = styled.h1`
   font-size: 36px;
   color: ${(props) => props.theme.color.accent};
 `;
-const Toggle = styled.button``;
+const Toggle = styled.button`
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px 30px;
+  border-radius: 10px;
+  border: transparent;
+  background-color: ${(props) => props.theme.color.box};
+  color: ${(props) => props.theme.color.text};
+  box-shadow: 10px 20px rgba(${(props) => props.theme.color.box} 0.8);
+`;
 const CoinList = styled.ul``;
 const Coin = styled.li`
   background-color: ${(props) => props.theme.color.box};

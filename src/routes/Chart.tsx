@@ -28,23 +28,27 @@ function Chart() {
     { refetchInterval: 10000 }
   );
   const isDark = useRecoilValue(isDarkAtom);
-
   return (
     <div>
       {isLoading ? (
         'Loading chart...'
       ) : (
         <ApexChart
-          type="line"
+          type="candlestick"
           series={[
             {
               name: 'Price',
-              data: data?.map((price) => price.close) || [],
+              data:
+                data?.map((price) => ({
+                  x: price.time_close,
+                  y: [price.open, price.high, price.low, price.close],
+                })) || [],
             },
           ]}
           options={{
             theme: { mode: isDark ? 'dark' : 'light' },
             chart: {
+              type: 'candlestick',
               toolbar: { show: false },
               width: 500,
               height: 500,
@@ -60,10 +64,10 @@ function Chart() {
               categories: data?.map((price) => price.time_close),
             },
             yaxis: { labels: { show: false }, axisBorder: { show: true } },
-            fill: {
-              type: 'gradient',
-              gradient: { gradientToColors: ['blue'], stops: [0, 100] },
-            },
+            // fill: {
+            //   type: 'gradient',
+            //   gradient: { gradientToColors: ['blue'], stops: [0, 100] },
+            // },
             colors: ['red'],
             tooltip: {
               y: {
@@ -72,6 +76,44 @@ function Chart() {
             },
           }}
         />
+        // <ApexChart
+        //   type="line"
+        //   series={[
+        //     {
+        //       name: 'Price',
+        //       data: data?.map((price) => price.close) || [],
+        //     },
+        //   ]}
+        //   options={{
+        //     theme: { mode: isDark ? 'dark' : 'light' },
+        //     chart: {
+        //       toolbar: { show: false },
+        //       width: 500,
+        //       height: 500,
+        //       background: 'transparent',
+        //     },
+
+        //     stroke: { curve: 'smooth', width: 3 },
+        //     grid: { show: false },
+        //     xaxis: {
+        //       labels: { show: false },
+        //       type: 'datetime',
+        //       axisTicks: { show: false },
+        //       categories: data?.map((price) => price.time_close),
+        //     },
+        //     yaxis: { labels: { show: false }, axisBorder: { show: true } },
+        //     fill: {
+        //       type: 'gradient',
+        //       gradient: { gradientToColors: ['blue'], stops: [0, 100] },
+        //     },
+        //     colors: ['red'],
+        //     tooltip: {
+        //       y: {
+        //         formatter: (value) => `$${value.toFixed(2)}`,
+        //       },
+        //     },
+        //   }}
+        // />
       )}
     </div>
   );
